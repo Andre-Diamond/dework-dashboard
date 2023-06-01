@@ -1,2 +1,2 @@
-# dework-dashboard
+# dework-performance-dashboard
 Dashboard and chatGPT prompt creator
