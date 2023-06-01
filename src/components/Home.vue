@@ -162,7 +162,7 @@ async function getStats() {
   let newResultsObj2 = await removeKeyValues(keysToRemove2, results2);
   let newResultsObj3 = await removeKeyValues(keysToRemove3, results3);
   tasksDone.value = everyTask.statusValues.done
-  documentationsMade.value = everyTask.tags.documentation.tasks
+  //documentationsMade.value = everyTask.tags.documentation.tasks
   await createChart(newResultsObj);
   await createChart2(newResultsObj2);
   await createChart3(newResultsObj3);
