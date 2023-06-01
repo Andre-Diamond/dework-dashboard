@@ -7,7 +7,7 @@ export async function useGetDoneTasks(tasks) {
 
     // Filter tasks with status = 'IN_REVIEW' and tag label = 'Audited'
     const hasInReviewStatus = task.status === 'IN_REVIEW';
-    const hasAuditedTag = task.tags.some(tag => tag.label === 'Audited');
+    const hasAuditedTag = task.tags.some(tag => tag.label.toLowerCase().includes('audited'));
 
     // Filter tasks with 'E' kind diff in audit log and created in the current month
     const hasRecentDoneStatus = task.auditLog.some(log => {

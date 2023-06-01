@@ -10,7 +10,8 @@ import { Colors } from "chart.js";
 
 Chart.register(Colors);
 
-const workspace = 'f0cea521-d319-4f02-a20a-7439998dbf82'
+const workspace = '65345970-fcb3-4962-be04-c1a3276157bd'
+const workgroupName = 'Automate, Educate, Communicate'
 
 let everyTask = {};
 let movedTasks = {};
@@ -21,7 +22,7 @@ let chart2 = null;
 let chart3 = null;
 let chart4 = null;
 let tasksDone = ref()
-let decisionsMade = ref()
+let documentationsMade = ref()
 let reportTasks = ref()
 const report = ref()
 const loading = ref(false)
@@ -43,8 +44,6 @@ onMounted(async () => {
     movedTasks = JSON.parse(localStorage.getItem("movedtasks"));
     reporttasks = JSON.parse(localStorage.getItem("reporttasks"));
     if (everyTask == null) {
-      // all_projects == null
-      //console.log("all_projects == null -> Reloading")
       await getData();
     } else {
       await getStats()
@@ -54,7 +53,7 @@ onMounted(async () => {
 async function getReport(tasks) {
   let text = 'State what has been done this month based on the following list of tasks - ' 
   + tasks + 
-  '. Keep in mind that these tasks are performed by Governance Guild.';
+  '. Keep in mind that these tasks are performed by the '+ workgroupName +' workgroup.';
   try {
     await navigator.clipboard.writeText(text);
     console.log('Text copied to clipboard');
@@ -156,14 +155,14 @@ async function getStats() {
   const { results: results2 } = await splitComplexObjectIntoKeysAndTaskValues(everyTask.tags, 'storyPoints');
   const { results: results3 } = await splitObjectIntoKeysAndValues(everyTask.statusValues);
   var transformedData = transformData(movedTasks);
-  let keysToRemove = ['github issue','Audited'];
-  let keysToRemove2 = ['github issue','Audited'];
+  let keysToRemove = ['github issue','Audited','audited'];
+  let keysToRemove2 = ['github issue','Audited','audited'];
   let keysToRemove3 = ['done'];
   let newResultsObj = await removeKeyValues(keysToRemove, results1);
   let newResultsObj2 = await removeKeyValues(keysToRemove2, results2);
   let newResultsObj3 = await removeKeyValues(keysToRemove3, results3);
   tasksDone.value = everyTask.statusValues.done
-  decisionsMade.value = everyTask.tags.Decision.tasks
+  documentationsMade.value = everyTask.tags.documentation.tasks
   await createChart(newResultsObj);
   await createChart2(newResultsObj2);
   await createChart3(newResultsObj3);
@@ -422,7 +421,7 @@ async function getStats() {
   <main class="main">
     <div>
       <div>
-        <h1>Governance Guild Dework Stats</h1>
+        <h1>Dework Stats</h1>
       </div>
       <div class="chartsbox">
         <div class="charts2">
@@ -432,7 +431,7 @@ async function getStats() {
           </div>
           <div>
           <p>Total Tasks done {{ tasksDone }}</p>
-          <p>Decisions made {{ decisionsMade }}</p>
+          <p>Documentation made {{ documentationsMade }}</p>
           <button v-on:click="getReport(reportTasks)">Generate Chat GPT prompt</button>
           <p>{{ report }}</p>
         </div>
