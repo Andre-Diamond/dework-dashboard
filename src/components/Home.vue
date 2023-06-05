@@ -27,7 +27,7 @@ let reportTasks = ref()
 const report = ref()
 const loading = ref(false)
 const textBefore = ref('State what has been done this month based on the following list of tasks - ')
-const textAfter = ref('. Keep in mind that these tasks are performed by the '+ workgroupName +' workgroup. Ignore the USD amounts in the titles of the tasks and dont focus too much on the dates of the tasks.')
+const textAfter = ref('. Keep in mind that these tasks are performed by the '+ workgroupName +' workgroup. Dont focus too much on the dates of the tasks.')
 
 
 onMounted(async () => {
